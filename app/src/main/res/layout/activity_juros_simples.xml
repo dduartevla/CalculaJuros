@@ -84,6 +84,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
+        android:onClick="calcularClick"
         android:text=" Calcular Juros Simples"
         app:layout_constraintEnd_toStartOf="@+id/buttonRetornar"
         app:layout_constraintHorizontal_bias="0.5"
@@ -94,6 +95,7 @@
         android:id="@+id/buttonRetornar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="retornaClick"
         android:text="Retornar"
         app:layout_constraintBaseline_toBaselineOf="@+id/buttonCalcularJuroSimples"
         app:layout_constraintEnd_toEndOf="parent"
@@ -101,7 +103,7 @@
         app:layout_constraintStart_toEndOf="@+id/buttonCalcularJuroSimples" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/textViewResultado"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
