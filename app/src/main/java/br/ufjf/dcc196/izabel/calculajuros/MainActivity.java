@@ -38,6 +38,19 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void jurosCompostosClick(View view){
+        try {
+            Double valorPresente = Double.parseDouble(editTextValorPresente.getText().toString());
+            Intent intent = new Intent(MainActivity.this, JurosSimplesActivity.class);
+
+            intent.putExtra("valorPresente", valorPresente);
+            startActivityForResult(intent,1);
+        } catch (Exception e){
+            editTextValorPresente.selectAll();
+            editTextValorPresente.requestFocus();
+        }
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

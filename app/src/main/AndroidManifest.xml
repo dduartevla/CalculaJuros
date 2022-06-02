@@ -13,6 +13,9 @@
             android:name=".JurosSimplesActivity"
             android:exported="false" />
         <activity
+            android:name=".JurosCompostosActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
