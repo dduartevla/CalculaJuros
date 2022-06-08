@@ -8,6 +8,9 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 public class JurosCompostosActivity extends AppCompatActivity {
 
     private TextView textViewValorPresente;
@@ -48,7 +51,8 @@ public class JurosCompostosActivity extends AppCompatActivity {
 
         valorFinal = valorPresente * Math.pow(1+taxaDeJuros,periodos);
 
-        textViewResultado.setText(valorFinal.toString());
+        Locale locale = new Locale("pt", "BR");
+        textViewResultado.setText(NumberFormat.getCurrencyInstance(locale).format(valorFinal));
 
     }
 }
