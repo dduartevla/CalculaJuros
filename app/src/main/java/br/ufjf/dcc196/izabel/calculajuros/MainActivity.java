@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     public void jurosCompostosClick(View view){
         try {
             Double valorPresente = Double.parseDouble(editTextValorPresente.getText().toString());
-            Intent intent = new Intent(MainActivity.this, JurosSimplesActivity.class);
+            Intent intent = new Intent(MainActivity.this, JurosCompostosActivity.class);
 
             intent.putExtra("valorPresente", valorPresente);
             startActivityForResult(intent,1);

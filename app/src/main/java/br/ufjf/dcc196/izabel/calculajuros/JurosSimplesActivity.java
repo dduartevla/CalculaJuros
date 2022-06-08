@@ -22,9 +22,9 @@ public class JurosSimplesActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_juros_simples);
-        textViewValorPresente = findViewById(R.id.textViewValePresente);
+        textViewValorPresente = findViewById(R.id.textViewValorPresente);
         Bundle extras = getIntent().getExtras();
-        valorPresente = extras.getDouble("ValorPresente");
+        valorPresente = extras.getDouble("valorPresente");
         textViewValorPresente.setText(valorPresente.toString());
         editTextTaxaDeJuros = findViewById(R.id.editTextTaxaJuroSimples);
         editTextPeriodos = findViewById(R.id.editTextPeriodo);
