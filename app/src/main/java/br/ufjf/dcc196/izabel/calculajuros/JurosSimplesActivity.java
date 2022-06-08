@@ -52,7 +52,7 @@ public class JurosSimplesActivity extends AppCompatActivity {
         valorFinal = valorPresente * (1 + taxaDeJuros*periodos);
 
         Locale locale = new Locale("pt","BR");
-        textViewResultado.setText(NumberFormat.getCurrencyInstance(locale).format(valorFinal);
+        textViewResultado.setText(NumberFormat.getCurrencyInstance(locale).format(valorFinal));
 
     }
 }

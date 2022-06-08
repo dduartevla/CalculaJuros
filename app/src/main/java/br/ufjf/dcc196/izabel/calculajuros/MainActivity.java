@@ -1,5 +1,6 @@
 package br.ufjf.dcc196.izabel.calculajuros;
 
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, JurosSimplesActivity.class);
 
             intent.putExtra("valorPresente", valorPresente);
+
             startActivityForResult(intent,1);
         } catch (Exception e){
             editTextValorPresente.selectAll();
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
             intent.putExtra("valorPresente", valorPresente);
             startActivityForResult(intent,1);
+
         } catch (Exception e){
             editTextValorPresente.selectAll();
             editTextValorPresente.requestFocus();
@@ -58,6 +61,9 @@ public class MainActivity extends AppCompatActivity {
             Bundle extras = data.getExtras();
             Double valorFinal = extras.getDouble("valorFinal");
             textViewValorFinal.setText(valorFinal.toString());
+        }
+        else{
+            textViewValorFinal.setText("Nada");
         }
     }
 }
