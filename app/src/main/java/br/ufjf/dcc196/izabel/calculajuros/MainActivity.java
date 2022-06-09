@@ -1,5 +1,8 @@
 package br.ufjf.dcc196.izabel.calculajuros;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,7 +15,10 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final int REQUEST_JUROS_SIMPLES = 1;
+    public static final int REQUEST_JUROS_COMPOSTO = 2;
 
+    ActivityResultLauncher<Intent> launcher;
     private EditText editTextValorPresente;
     TextView textViewValorFinal;
 
@@ -23,6 +29,27 @@ public class MainActivity extends AppCompatActivity {
         editTextValorPresente = findViewById(R.id.editTextValorPresente);
 
         textViewValorFinal = findViewById(R.id.textViewValorFinal);
+         launcher = registerForActivityResult(
+                 new ActivityResultContracts.StartActivityForResult(),
+                 new ActivityResultCallback<ActivityResult>(){
+
+                     @Override
+                     public void onActivityResult (ActivityResult result){
+                         Bundle extras;
+                         Double valorFinal;
+                         switch (result.getResultCode()){
+                             case REQUEST_JUROS_SIMPLES:
+
+                                 extras = result.getData().getExtras();
+                                 valorFinal = extras.getDouble("valorFinal");
+                                 textViewValorFinal.setText("Simples R$" + valorFinal.toString());
+                                 break;
+
+
+                         }
+                     }
+                 }
+         )
     }
 
     public void jurosSimplesClick(View view){
