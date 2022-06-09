@@ -45,7 +45,12 @@ public class MainActivity extends AppCompatActivity {
                                  textViewValorFinal.setText("Simples R$" + valorFinal.toString());
                                  break;
 
+                             case REQUEST_JUROS_COMPOSTO:
 
+                                 extras = result.getData().getExtras();
+                                 valorFinal = extras.getDouble("valorFinal");
+                                 textViewValorFinal.setText("Compostos: R$"+valorFinal.toString());
+                                 break;
                          }
                      }
                  }
@@ -59,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
             intent.putExtra("valorPresente", valorPresente);
 
-            startActivityForResult(intent,1);
+            //startActivityForResult(intent,1);
         } catch (Exception e){
             editTextValorPresente.selectAll();
             editTextValorPresente.requestFocus();
@@ -73,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, JurosCompostosActivity.class);
 
             intent.putExtra("valorPresente", valorPresente);
-            startActivityForResult(intent,1);
+           // startActivityForResult(intent,1);
 
         } catch (Exception e){
             editTextValorPresente.selectAll();
