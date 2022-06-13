@@ -38,7 +38,7 @@ public class JurosCompostosActivity extends AppCompatActivity {
 
         Intent resultado = new Intent();
         resultado.putExtra("valorFinal", valorFinal);
-        setResult(1, resultado);
+        setResult(2, resultado);
         finish();
     }
 

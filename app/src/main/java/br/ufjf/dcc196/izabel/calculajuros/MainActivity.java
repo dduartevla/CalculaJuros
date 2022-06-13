@@ -20,11 +20,14 @@ public class MainActivity extends AppCompatActivity {
 
     public static final int REQUEST_JUROS_SIMPLES = 1;
     public static final int REQUEST_JUROS_COMPOSTO = 2;
+    public static final int REQUEST_VALOR_FINAL = 3;
 
     ActivityResultLauncher<Intent> launcher;
     private EditText editTextValorPresente;
     TextView textViewValorFinal;
     Locale locale = new Locale("pt","BR");
+    TextView textViewPorcentagem;
+    TextView textViewValorFuturo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
         editTextValorPresente = findViewById(R.id.editTextValorPresente);
 
         textViewValorFinal = findViewById(R.id.textViewValorFinal);
+        textViewPorcentagem = findViewById(R.id.textViewPorcentagem);
+        textViewValorFuturo = findViewById(R.id.textViewValorFuturo);
          launcher = registerForActivityResult(
                  new ActivityResultContracts.StartActivityForResult(),
                  new ActivityResultCallback<ActivityResult>(){
@@ -55,6 +60,15 @@ public class MainActivity extends AppCompatActivity {
                                  valorFinal = extras.getDouble("valorFinal");
                                  textViewValorFinal.setText(NumberFormat.getCurrencyInstance(locale).format(valorFinal));
                                  break;
+
+                             case REQUEST_VALOR_FINAL:
+
+                                 extras = result.getData().getExtras();
+                                 Double valorFuturo = extras.getDouble("valorFuturo");
+                                 Double valorPorcentagem = extras.getDouble("valorPorcentagem");
+                                 textViewPorcentagem.setText(NumberFormat.getCurrencyInstance(locale).format(valorPorcentagem));
+                                 textViewValorFuturo.setText(NumberFormat.getCurrencyInstance(locale).format(valorFuturo));
+
                          }
                      }
                  }
@@ -86,6 +100,21 @@ public class MainActivity extends AppCompatActivity {
            // startActivityForResult(intent,1);
             launcher.launch(intent);
 
+        } catch (Exception e){
+            editTextValorPresente.selectAll();
+            editTextValorPresente.requestFocus();
+        }
+    }
+
+    public void valorFuturoClick(View view){
+        try {
+            Double valorPresente = Double.parseDouble(editTextValorPresente.getText().toString());
+            Intent intent = new Intent(MainActivity.this, ValorFuturo.class);
+
+            intent.putExtra("valorPresente", valorPresente);
+
+            //startActivityForResult(intent,1);
+            launcher.launch(intent);
         } catch (Exception e){
             editTextValorPresente.selectAll();
             editTextValorPresente.requestFocus();
