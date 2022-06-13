@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.text.NumberFormat;
@@ -13,12 +14,14 @@ import java.util.Locale;
 
 public class JurosCompostosActivity extends AppCompatActivity {
 
+    ActivityResultLauncher<Intent> launcher;
     private TextView textViewValorPresente;
     private Double valorPresente;
     private EditText editTextTaxaDeJuros;
     private EditText editTextPeriodos;
     private TextView textViewResultado;
     private Double valorFinal;
+    private Double valorPorcentagem = 0.00;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,7 @@ public class JurosCompostosActivity extends AppCompatActivity {
 
         Intent resultado = new Intent();
         resultado.putExtra("valorFinal", valorFinal);
+        resultado.putExtra("valorPorcentagem", valorPorcentagem);
         setResult(2, resultado);
         finish();
     }
@@ -55,4 +59,14 @@ public class JurosCompostosActivity extends AppCompatActivity {
         textViewResultado.setText(NumberFormat.getCurrencyInstance(locale).format(valorFinal));
 
     }
+
+    public void calcularDiferenca(View view){
+        TextView textViewPorcentagem = findViewById(R.id.textViewPorcentagem);
+
+        valorPorcentagem = ((valorFinal - valorPresente) / valorPresente) *100;
+
+        textViewPorcentagem.setText(valorPorcentagem + "%");
+
+    }
 }
+

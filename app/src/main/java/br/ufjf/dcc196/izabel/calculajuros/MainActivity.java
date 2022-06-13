@@ -20,14 +20,15 @@ public class MainActivity extends AppCompatActivity {
 
     public static final int REQUEST_JUROS_SIMPLES = 1;
     public static final int REQUEST_JUROS_COMPOSTO = 2;
-    public static final int REQUEST_VALOR_FINAL = 3;
+    public static final int REQUEST_VALOR_FUTURO = 3;
 
     ActivityResultLauncher<Intent> launcher;
     private EditText editTextValorPresente;
-    TextView textViewValorFinal;
+    //TextView textViewValorFinal;
     Locale locale = new Locale("pt","BR");
     TextView textViewPorcentagem;
     TextView textViewValorFuturo;
+    Double valorFinal = 0.00;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +36,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         editTextValorPresente = findViewById(R.id.editTextValorPresente);
 
-        textViewValorFinal = findViewById(R.id.textViewValorFinal);
+        //textViewValorFinal = findViewById(R.id.textViewValorFinal);
         textViewPorcentagem = findViewById(R.id.textViewPorcentagem);
-        textViewValorFuturo = findViewById(R.id.textViewValorFuturo);
+        textViewValorFuturo = findViewById(R.id.textViewValorFinal);
          launcher = registerForActivityResult(
                  new ActivityResultContracts.StartActivityForResult(),
                  new ActivityResultCallback<ActivityResult>(){
@@ -45,29 +46,40 @@ public class MainActivity extends AppCompatActivity {
                      @Override
                      public void onActivityResult (ActivityResult result){
                          Bundle extras;
-                         Double valorFinal;
+                         Double valorPorcentagem;
+
                          switch (result.getResultCode()){
                              case REQUEST_JUROS_SIMPLES:
 
                                  extras = result.getData().getExtras();
                                  valorFinal = extras.getDouble("valorFinal");
-                                 textViewValorFinal.setText(NumberFormat.getCurrencyInstance(locale).format(valorFinal));
+                                 valorPorcentagem = extras.getDouble("valorPorcentagem");
+
+                                 textViewPorcentagem.setText(valorPorcentagem + "%");
+                                 textViewValorFuturo.setText(NumberFormat.getCurrencyInstance(locale).format(valorFinal));
                                  break;
 
                              case REQUEST_JUROS_COMPOSTO:
 
                                  extras = result.getData().getExtras();
                                  valorFinal = extras.getDouble("valorFinal");
-                                 textViewValorFinal.setText(NumberFormat.getCurrencyInstance(locale).format(valorFinal));
+                                 valorPorcentagem = extras.getDouble("valorPorcentagem");
+
+                                 textViewPorcentagem.setText(valorPorcentagem + "%");
+                                 textViewValorFuturo.setText(NumberFormat.getCurrencyInstance(locale).format(valorFinal));
                                  break;
 
-                             case REQUEST_VALOR_FINAL:
+                             case REQUEST_VALOR_FUTURO:
 
                                  extras = result.getData().getExtras();
                                  Double valorFuturo = extras.getDouble("valorFuturo");
-                                 Double valorPorcentagem = extras.getDouble("valorPorcentagem");
-                                 textViewPorcentagem.setText(NumberFormat.getCurrencyInstance(locale).format(valorPorcentagem));
+                                 valorPorcentagem = extras.getDouble("valorPorcentagem");
+
+                                 textViewPorcentagem.setText(valorPorcentagem + "%");
+
                                  textViewValorFuturo.setText(NumberFormat.getCurrencyInstance(locale).format(valorFuturo));
+
+                                 break;
 
                          }
                      }
@@ -112,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, ValorFuturo.class);
 
             intent.putExtra("valorPresente", valorPresente);
+            intent.putExtra("valorFuturo", valorFinal);
 
             //startActivityForResult(intent,1);
             launcher.launch(intent);
@@ -128,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
             Bundle extras = data.getExtras();
             Double valorFinal = extras.getDouble("valorFinal");
 
-            textViewValorFinal.setText(NumberFormat.getCurrencyInstance(locale).format(valorFinal));
+            textViewValorFuturo.setText(NumberFormat.getCurrencyInstance(locale).format(valorFinal));
         }
 
     }

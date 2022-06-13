@@ -22,15 +22,22 @@ public class ValorFuturo extends AppCompatActivity {
     private Button buttonCalcular;
     private TextView textViewPorcentagem;
     private Button buttonRetornar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_valor_futuro);
-        textViewValorPresente = findViewById(R.id.editTextValorPresente);
+        textViewValorPresente = findViewById(R.id.textViewValorPresente);
         Bundle extras = getIntent().getExtras();
         valorPresente = extras.getDouble("valorPresente");
         textViewValorPresente.setText(valorPresente.toString());
-        editTextValorFuturo = findViewById(R.id.editTextValorPresente);
+        editTextValorFuturo = findViewById(R.id.editTextValorFuturo);
+        try{
+            valorFuturo = extras.getDouble("valorFuturo");
+            editTextValorFuturo.setText(valorFuturo.toString());
+        } catch (Exception e){
+
+        }
         buttonCalcular = findViewById(R.id.buttonCalcular);
         textViewPorcentagem = findViewById(R.id.textViewPorcentagem);
         buttonRetornar = findViewById(R.id.buttonRetornar);
@@ -38,11 +45,9 @@ public class ValorFuturo extends AppCompatActivity {
 
     public void calcularClick(View view){
 
-        valorFuturo = Double.parseDouble(editTextValorFuturo.getText().toString());
         valorPorcentagem = ((valorFuturo - valorPresente) / valorPresente) * 100;
 
-        Locale locale = new Locale("pt","BR");
-        textViewPorcentagem.setText(NumberFormat.getCurrencyInstance(locale).format(valorPorcentagem));
+        textViewPorcentagem.setText(valorPorcentagem + "%");
 
     }
 
