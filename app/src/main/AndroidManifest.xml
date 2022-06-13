@@ -9,6 +9,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CalculaJuros">
         <activity
+            android:name=".ValorFuturo"
+            android:exported="false" />
+        <activity
             android:name=".JurosSimplesActivity"
             android:exported="false" />
         <activity

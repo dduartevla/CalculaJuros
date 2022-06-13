@@ -13,6 +13,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity {
 
     public static final int REQUEST_JUROS_SIMPLES = 1;
@@ -21,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     ActivityResultLauncher<Intent> launcher;
     private EditText editTextValorPresente;
     TextView textViewValorFinal;
+    Locale locale = new Locale("pt","BR");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,19 +46,19 @@ public class MainActivity extends AppCompatActivity {
 
                                  extras = result.getData().getExtras();
                                  valorFinal = extras.getDouble("valorFinal");
-                                 textViewValorFinal.setText("Simples R$" + valorFinal.toString());
+                                 textViewValorFinal.setText(NumberFormat.getCurrencyInstance(locale).format(valorFinal));
                                  break;
 
                              case REQUEST_JUROS_COMPOSTO:
 
                                  extras = result.getData().getExtras();
                                  valorFinal = extras.getDouble("valorFinal");
-                                 textViewValorFinal.setText("Compostos: R$"+valorFinal.toString());
+                                 textViewValorFinal.setText(NumberFormat.getCurrencyInstance(locale).format(valorFinal));
                                  break;
                          }
                      }
                  }
-         )
+         );
     }
 
     public void jurosSimplesClick(View view){
@@ -65,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra("valorPresente", valorPresente);
 
             //startActivityForResult(intent,1);
+            launcher.launch(intent);
         } catch (Exception e){
             editTextValorPresente.selectAll();
             editTextValorPresente.requestFocus();
@@ -79,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
             intent.putExtra("valorPresente", valorPresente);
            // startActivityForResult(intent,1);
+            launcher.launch(intent);
 
         } catch (Exception e){
             editTextValorPresente.selectAll();
@@ -92,10 +98,9 @@ public class MainActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK){
             Bundle extras = data.getExtras();
             Double valorFinal = extras.getDouble("valorFinal");
-            textViewValorFinal.setText(valorFinal.toString());
+
+            textViewValorFinal.setText(NumberFormat.getCurrencyInstance(locale).format(valorFinal));
         }
-        else{
-            textViewValorFinal.setText("Nada");
-        }
+
     }
 }
